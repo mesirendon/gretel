@@ -1,0 +1,247 @@
+swagger: "2.0"
+info:
+  version: "1.0.5"
+  title: UNAL Certificates on Blockchain API
+  description: UNAL Certificates on Blockchain API documentation and test
+# during dev, should point to your local machine
+host: localhost:10010
+# basePath prefixes all resource paths
+basePath: /
+#
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /login:
+    x-swagger-router-controller: session
+    post:
+      tags:
+        - session
+      summary: Login into the API
+      description: Allows a user to obtain a valid token to use with other endpoints
+      operationId: login
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          description: User credentials
+          required: true
+          schema:
+            $ref: "#/definitions/UserCredentials"
+      responses:
+        200:
+          description: Successful login
+          schema:
+            $ref: "#/definitions/Token"
+  /token:
+    x-swagger-router-controller: session
+    post:
+      tags:
+        - session
+      summary: Checks token authenticity
+      description: Returns the token decoded
+      operationId: checkToken
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: body
+          description: User credentials
+          required: true
+          schema:
+            $ref: "#/definitions/Token"
+      responses:
+        200:
+          description: Successful login
+          schema:
+            $ref: "#/definitions/JWT"
+        401:
+          description: Invalid token
+  /certifications:
+    x-swagger-router-controller: certification
+    post:
+      tags:
+      - certifications
+      summary: Certifies a student
+      description: Certifiies the given student with the course information.
+      operationId: certify
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: certification
+        in: body
+        description: Certification information
+        required: true
+        schema:
+          $ref: "#/definitions/Certification"
+      - name: Authorization
+        in: header
+        type: string
+        required: true
+        format: Bearer JWT_TOKEN
+      responses:
+        201:
+          description: Certification created
+          schema:
+            $ref: "#/definitions/CertificationResponse"
+        401:
+          description: Authorization token hasn't been provided
+        400:
+          description: Missing required parameters in the certification object.
+  /validate:
+    x-swagger-router-controller: certification
+    get:
+      tags:
+      - validate
+      summary: Validates a certification via hashes
+      description: Retrieves information from the smart contract for the given hash
+      operationId: validate
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: type
+        in: query
+        description: Type of hash
+        required: true
+        type: string
+        enum: [ipfs, link]
+      - name: hash
+        in: query
+        description: Hash code
+        type: string
+        required: true
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/CertificationInformation"
+        404:
+          description: The certification.t with the provided hash hasn't been found
+    post:
+      tags:
+      - validate
+      summary: Uploads a document to be validated
+      description: Uploads a document, calculates its IPFS hash, looks for it on the blockchain and determines if it was uploaded by UNAL.
+      operationId: validateFile
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: file
+        in: formData
+        description: file to validate
+        required: true
+        type: file
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/CertificationInformation"
+        404:
+          description: The certification.t with the provided hash hasn't been found
+  /swagger:
+    x-swagger-pipe: swagger_raw
+# complex objects have schema definitions
+definitions:
+  UserCredentials:
+    type: object
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+        format: password
+  Token:
+    type: object
+    required:
+      - token
+    properties:
+      token:
+        type: string
+  JWT:
+    type: object
+    properties:
+      email:
+        type: string
+      iat:
+        type: number
+      exp:
+        type: number
+  Certification:
+    type: object
+    required:
+      - studentId
+      - studentName
+      - studentEmail
+      - courseId
+      - courseName
+      - courseStartDate
+      - courseFinishDate
+    properties:
+      studentId:
+        type: string
+        description: Student identification
+      studentName:
+        type: string
+        description: Student name
+      studentEmail:
+        type: string
+        description: Student email
+      courseId:
+        type: string
+        description: Course Hermes identification
+      courseName:
+        type: string
+        description: Course name
+      courseStartDate:
+        type: string
+        format: YYYY-MM-DD
+        description: Course efective starting date
+      courseFinishDate:
+        type: string
+        format: YYYY-MM-DD
+        description: Course effective finishing date
+  CertificationResponse:
+    properties:
+      transaction:
+        type: object
+        properties:
+          ipfsHash:
+            type: string
+            format: \w{46}
+          txHash:
+            type: string
+            format: 0x[a-f0-9]{64}
+  CertificationInformation:
+    type: object
+    properties:
+      studentId:
+        type: string
+      studentName:
+        type: string
+      courseName:
+        type: string
+      courseStartDate:
+        type: string
+      courseFinishDate:
+        type: string
