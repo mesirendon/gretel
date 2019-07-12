@@ -24,7 +24,15 @@ contract Gretel is Ownable {
   event newDevice(string _name, address indexed _address);
   event closeTrip(string _name, address indexed _address);
   event deviceAssignedToTransporter(address indexed _transporter, address _device);
-  event newTripEventRecord(string _name, uint _tripId, address indexed _from, string _humidity, string _lat, string _lon);
+  event newTripEventRecord(
+    string _name,
+    uint _tripId,
+    address indexed _from,
+    string _humidity,
+    string _temperature,
+    string _lat,
+    string _lon
+  );
 
   struct Trips {
     uint activeTrip;
@@ -40,6 +48,7 @@ contract Gretel is Ownable {
 
   struct EventRecord {
     string humidity;
+    string temperature;
     string lat;
     string lon;
   }
@@ -118,11 +127,16 @@ contract Gretel is Ownable {
     emit newTrip("Nuevo viaje registrado", tripId, msg.sender);
   }
 
-  function recordEvent(string memory _humidity, string memory _lat, string memory _lon) public onlyDevice {
+  function recordEvent(
+    string memory _humidity,
+    string memory _temperature,
+    string memory _lat,
+    string memory _lon
+  ) public onlyDevice {
     Trips storage tt = transporterTrips[deviceTransporter[msg.sender]];
     require (tt.activeTrip == 0, "The transporter has an active trip");
-    tripEventRecords[tt.activeTrip][now] = EventRecord({humidity: _humidity, lat: _lat, lon: _lon});
-    emit newTripEventRecord("Nuevo registro de dispositivo", tt.activeTrip, msg.sender, _humidity, _lat, _lon);
+    tripEventRecords[tt.activeTrip][now] = EventRecord({humidity: _humidity, temperature: _temperature, lat: _lat, lon: _lon});
+    emit newTripEventRecord("Nuevo registro de dispositivo", tt.activeTrip, msg.sender, _humidity, _temperature, _lat, _lon);
   }
 
   function finishTrip() public onlyTransport {
