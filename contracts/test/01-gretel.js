@@ -103,7 +103,7 @@ contract('Gretel', accounts => {
 
   describe('Device', () => {
     it('should record an event', () => {
-      return gretel.recordEvent('24', '20', '20', {from: device1}).then(response => {
+      return gretel.recordEvent('24', '30', '20', '20', {from: device1}).then(response => {
         expect(response.tx).to.match(/0x[a-fA-f0-9]{62}/);
       });
     });
