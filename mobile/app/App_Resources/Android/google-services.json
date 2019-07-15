@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "64113780975",
+    "firebase_url": "https://greteltracer.firebaseio.com",
+    "project_id": "greteltracer",
+    "storage_bucket": "greteltracer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64113780975:android:5fe7fcb0fd6d367e",
+        "android_client_info": {
+          "package_name": "app.web.greteltracer.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "64113780975-ske0bdm7ucc6b26g8gcknp0a2159g6vq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOojg2ilq9lpekzAepweGpq2Be3igmcbc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "64113780975-ske0bdm7ucc6b26g8gcknp0a2159g6vq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

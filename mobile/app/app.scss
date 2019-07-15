@@ -1,10 +1,44 @@
-// NativeScript core theme
-// @see https://docs.nativescript.org/ui/theme
-@import '~nativescript-theme-core/scss/lime';
-
-// Override variables here
-
-@import '~nativescript-theme-core/scss/index';
-
 // Global SCSS styling
 // @see https://docs.nativescript.org/ui/styling
+
+.far {
+  font-family: 'Font Awesome 5 Free', fa-regular-400,;
+  font-weight: 400;
+}
+
+.fab {
+  font-family: 'Font Awesome 5 Brands', fa-brands-400;
+  font-weight: 400;
+}
+
+.fas {
+  font-family: 'Font Awesome 5 Free', fa-solid-900;
+  font-weight: 900;
+}
+
+.title-text {
+  font-size: 20;
+  vertical-align: center;
+  horizontal-align: center;
+}
+
+.title {
+  margin: 5;
+}
+
+.cell {
+  padding: 5;
+}
+
+.modal {
+  height: 70%;
+}
+
+.cargo {
+  border-radius: 20;
+  margin: 12;
+  padding: 10;
+  background-color: #E3E9F8;
+  color: #131636;
+  height: 70%;
+}
