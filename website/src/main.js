@@ -5,15 +5,17 @@ import store from './store';
 import {sync} from 'vuex-router-sync';
 import * as firebase from 'firebase/app';
 import * as VueGoogleMaps from 'vue2-google-maps';
+import VueGoogleCharts from 'vue-google-charts';
 import './registerServiceWorker';
 
-import {firebaseConfig} from './config';
+import {firebaseConfig, key} from './config';
 require('firebase/firestore');
 
+Vue.use(VueGoogleCharts);
 Vue.use(VueGoogleMaps, {
   installComponents: true,
   load: {
-    key: 'AIzaSyBado9Pu3BiTxjPxl2touV6CytAlc8hB00',
+    key,
   },
 });
 

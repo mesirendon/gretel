@@ -16,6 +16,9 @@
         <li class="nav-item">
           <router-link :to="{name: 'devices'}" class="nav-link"><i class="fas fa-boxes"></i> Mis dispositivos</router-link>
         </li>
+        <li class="nav-item">
+          <router-link :to="{name: 'about'}" class="nav-link"><i class="fas fa-users"></i> Acerca de nosotros</router-link>
+        </li>
       </ul>
     </div>
   </nav>

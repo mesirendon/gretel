@@ -1,11 +1,15 @@
 // Add your native dependencies here:
 
 android {
-  defaultConfig {  
+  defaultConfig {
     generatedDensities = []
-    applicationId = "__PACKAGE__"
+    multiDexEnabled true
+    applicationId = "app.web.greteltracer.mobile"
   }
-  aaptOptions {  
-    additionalParameters "--no-version-vectors"  
-  }  
-} 
+  aaptOptions {
+    additionalParameters "--no-version-vectors"
+  }
+  project.ext {
+    googlePlayServicesVersion = "15.0.0"
+  }
+}

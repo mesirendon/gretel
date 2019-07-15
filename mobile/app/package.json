@@ -3,6 +3,6 @@
     "v8Flags": "--expose_gc"
   },
   "main": "main",
-  "name": "gretel",
+  "name": "greteltracer",
   "version": "1.0.0"
 }

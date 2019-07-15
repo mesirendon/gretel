@@ -19,9 +19,20 @@ export default new Router({
       component: () => import(/* webpackChunkName: "trips" */ '../views/Trips.vue'),
     },
     {
+      path: '/trips/:transporter/:trip',
+      name: 'trip-detail',
+      props: true,
+      component: () => import(/* webpackChunkName: "trips" */ '../views/Trips.vue'),
+    },
+    {
       path: '/devices',
       name: 'devices',
       component: () => import(/* webpackChunkName: "devices" */ '../views/Devices.vue'),
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
     },
   ],
 });
