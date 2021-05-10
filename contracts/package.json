@@ -6,6 +6,6 @@
     "openzeppelin-solidity": "^2.3.0"
   },
   "devDependencies": {
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.21"
   }
 }
