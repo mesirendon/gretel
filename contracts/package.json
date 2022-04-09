@@ -2,7 +2,7 @@
   "dependencies": {
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "openzeppelin-solidity": "^2.3.0"
   },
   "devDependencies": {
