@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@vue/devtools": "^5.0.6",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "nativescript-geolocation": "^5.1.0",
     "nativescript-plugin-firebase": "^9.0.3",
     "nativescript-socketio": "^3.2.1",
